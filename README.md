@@ -24,18 +24,6 @@ Incluye:
 5. Guarda los cambios y espera unos segundos.
 6. GitHub te dara la URL publica de tu tienda.
 
-## Acceso al administrador
-
-El acceso no es visible para usuarios normales.
-
-Formas de abrir el login admin:
-
-- Toca 5 veces seguidas el nombre `Timpraz` en el header.
-- O usa el atajo `Alt + Shift + A`.
-
-Contrasena actual:
-
-`0993`
 
 ## Funciones del administrador
 
@@ -60,33 +48,3 @@ Eso significa que:
 - Una persona tecnica podria inspeccionar el codigo fuente
 
 Si en el futuro quieres seguridad real, se recomienda mover el panel admin a un backend o sistema con autenticacion real.
-
-## Personalizacion rapida
-
-Si quieres cambiar datos principales, revisa estas constantes dentro de `index.html`:
-
-- `ADMIN_PASSWORD`
-- `WA_NUMBER`
-- `STORE_NAME`
-- `FIXED_CATEGORIES`
-
-Tambien puedes modificar los productos iniciales en:
-
-- `DEFAULT_PRODUCTS`
-
-## Estructura del proyecto
-
-```text
-/
-|-- index.html
-|-- README.md
-|-- catalogo_producto_demo.html
-```
-
-## Demo base
-
-El archivo `catalogo_producto_demo.html` se conserva como referencia del demo original.
-
-La version lista para publicar en GitHub Pages es:
-
-- `index.html`
