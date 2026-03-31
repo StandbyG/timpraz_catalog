@@ -228,6 +228,7 @@
     let activeFilter = 'Todos';
     let tapCount = 0;
     let tapTimer = null;
+    let pressTimer = null;
 
     function loadProducts(){
       const saved = localStorage.getItem(STORE_KEY);
@@ -361,6 +362,10 @@
       document.getElementById('adminLoginOverlay').classList.add('open');
     }
 
+    function triggerAdminAccess(){
+      ensureAdmin();
+    }
+
     function loginAdmin(){
       const password = document.getElementById('adminPassword').value;
       if(password !== ADMIN_PASSWORD){
@@ -488,25 +493,55 @@
       `).join('');
     }
 
-    document.getElementById('secretTrigger').addEventListener('click', () => {
+    const secretTrigger = document.getElementById('secretTrigger');
+
+    secretTrigger.addEventListener('click', () => {
       tapCount += 1;
       clearTimeout(tapTimer);
       tapTimer = setTimeout(() => { tapCount = 0; }, 1800);
       if(tapCount >= 5){
         tapCount = 0;
-        ensureAdmin();
+        triggerAdminAccess();
       }
     });
 
+    secretTrigger.addEventListener('dblclick', () => {
+      triggerAdminAccess();
+    });
+
+    function startPressAccess(){
+      clearTimeout(pressTimer);
+      pressTimer = setTimeout(() => {
+        triggerAdminAccess();
+      }, 1200);
+    }
+
+    function cancelPressAccess(){
+      clearTimeout(pressTimer);
+    }
+
+    secretTrigger.addEventListener('mousedown', startPressAccess);
+    secretTrigger.addEventListener('mouseup', cancelPressAccess);
+    secretTrigger.addEventListener('mouseleave', cancelPressAccess);
+    secretTrigger.addEventListener('touchstart', startPressAccess, { passive: true });
+    secretTrigger.addEventListener('touchend', cancelPressAccess);
+    secretTrigger.addEventListener('touchcancel', cancelPressAccess);
+
     document.addEventListener('keydown', (event) => {
       if(event.altKey && event.shiftKey && event.key.toLowerCase() === 'a'){
-        ensureAdmin();
+        triggerAdminAccess();
       }
       if(event.key === 'Escape'){
         hideModal('modal');
         hideModal('adminLoginOverlay');
       }
     });
+
+    if(window.location.hash === '#admin'){
+      setTimeout(() => {
+        triggerAdminAccess();
+      }, 250);
+    }
 
     populateCategorySelect();
     resetForm();
