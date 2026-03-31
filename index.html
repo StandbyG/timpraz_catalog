@@ -223,6 +223,7 @@
     const WA_NUMBER = '51956252241';
     const STORE_NAME = 'Timpraz';
     const FIXED_CATEGORIES = ['Ropa de bebe','Ropa deportiva','Ropa interior','Instrumentos deportivos'];
+    const DEFAULT_PRODUCTS = [];
 
     let products = loadProducts();
     let activeFilter = 'Todos';
@@ -238,7 +239,7 @@
       }
       try{
         const parsed = JSON.parse(saved);
-        return Array.isArray(parsed) && parsed.length ? parsed : [...DEFAULT_PRODUCTS];
+        return Array.isArray(parsed) ? parsed : [...DEFAULT_PRODUCTS];
       }catch{
         localStorage.setItem(STORE_KEY, JSON.stringify(DEFAULT_PRODUCTS));
         return [...DEFAULT_PRODUCTS];
